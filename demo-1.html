@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="example">
+        <p>Original message: "{{ message }}"</p>
+        <!-- 计算属性 -->
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <!-- 方法 -->
+        <p>Reversed message: "{{ reversedMessage1() }}"</p>
+
+        <p>"{{ now }}"</p>
+        <p>"{{ now }}"</p>
+        <p>"{{ now }}"</p>
+
+        <p>"{{ now1() }}"</p>
+        <p>"{{ now1() }}"</p>
+        <p>"{{ now1() }}"</p>
+
+
+
+    </div>
+
+    <div id="demo">{{ fullName }}</div>
+    <div id="demo1">{{ fullName }}</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#example',
+        data: {
+            message: 'Hello'
+        },
+        computed: {
+            // 计算属性的 getter
+            reversedMessage: function () {
+                // `this` 指向 vm 实例
+                return this.message.split('').reverse().join('')
+
+            },
+            now: function () {
+                return Date.now()
+            }
+        },
+
+        methods: {
+            reversedMessage1: function () {
+                return this.message.split('').reverse().join('')
+            },
+            now1: function () {
+                return Date.now()
+            }
+        }
+    })
+
+
+
+    var demo = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar',
+            fullName: 'Foo Bar'
+        },
+        watch: {
+            firstName: function (val) {
+                this.fullName = val + ' ' + this.lastName
+            },
+            lastName: function (val) {
+                this.fullName = this.firstName + ' ' + val
+            }
+        }
+    })
+
+
+    var demo1 = new Vue({
+        el: '#demo1',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar'
+        },
+        computed: {
+            fullName: function () {
+                return this.firstName + ' ' + this.lastName
+            }
+        }
+    })
+</script>
+
+</html>
